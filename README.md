@@ -10,7 +10,7 @@ EpiActivity.java  - Activity with list of episodes.
 
 EpiView.java  - single episode element.
 
-PreLoadingActivity.java – Loading Activity. We are looking at when content is loading.
+PreLoadingActivity.java – It's a loading Activity, we are looking at, when content is loading.
 
 RetrieveFeedTask.java – AsyncTask that downloaded xml files in background.
 
