@@ -4,7 +4,7 @@
 All java files are located  in “\java\tv\theautismchannel\amazon\”. All the xml files(anmations, strings, layouts) and drawable resources are located in “\res\” folder.
 ###Java files:###
 
-CollectionDemoActivity.java – it is main Activity (Program guide), that contains all series.
+CollectionDemoActivity.java – it is main Activity (Program guide), that contains all series. 
 
 EpiActivity.java  - Activity with list of episodes.
 
@@ -33,3 +33,7 @@ Installation [instruction](http://www.goprogramming.space/connecting-android-stu
 3) Run TV emulator by pressing AVD manager button ![AVD manager button](https://wtcindia.files.wordpress.com/2015/07/screen-shot-2015-07-23-at-2-49-36-pm.png). And start TV emulator
 
 4) Press Shift + F10 to run project on existing emulator.
+
+
+
+In this project we are using  [Android-Universal-Image-Loader]( https://github.com/nostra13/Android-Universal-Image-Loader) and Java-Json libraries.
