@@ -262,6 +262,16 @@ public class EpiActivity extends Activity {
         private static final String ARG_SECTION_NUMBER = "section_number";
         private ListView epiList;
         private String backgroundlink;
+        private  TextView[] epiNum;
+        TextView epi_num_1 = null;
+        TextView epi_num_2= null;
+        TextView epi_num_3= null;
+        TextView epi_num_4= null;
+        TextView epi_num_5= null;
+        TextView epi_num_6= null;
+        TextView epi_num_7= null;
+        TextView epi_num_8= null;
+        private int [] epiNumId;
 
         public PlaceholderFragment() {
         }
@@ -318,6 +328,28 @@ public class EpiActivity extends Activity {
 //            LinearLayout colomOTwo = (LinearLayout) rootView.findViewById(R.id.colom_two);
 
             //Declarate all epiLayouts elements
+
+            initLayoutsElements();
+            epiNum  = new TextView[] {epi_num_1, epi_num_2, epi_num_3, epi_num_4, epi_num_5, epi_num_6, epi_num_7, epi_num_8};
+            epiNumId = new int[]{R.id.epi_num_1,R.id.epi_num_2,R.id.epi_num_3,R.id.epi_num_4,R.id.epi_num_5,R.id.epi_num_6,R.id.epi_num_7,R.id.epi_num_8,};
+            int pageNumber = getArguments().getInt(ARG_SECTION_NUMBER) - 1;
+//            int epiNumberOnPage = pageNumber * 8 - (8 - position);
+            int end;
+            if (epiTitles.length>=8){
+                end = 8;
+            }else {
+                end = epiTitles.length;
+            }
+
+            for (int position = 0; position < end; position++){
+                System.out.println("end "+ end + "position " + position);
+                epiNum[position]=(TextView) rootView.findViewById(epiNumId[position]);
+                epiNum[position].setText(R.string.ep);
+            }
+
+
+
+
             //Episode #1
             TextView epi_num_1 = (TextView) rootView.findViewById(R.id.epi_num_1);
             TextView epi_title_1 = (TextView) rootView.findViewById(R.id.epi_title_1);
@@ -338,8 +370,39 @@ public class EpiActivity extends Activity {
             epi_description_5.setText(description[3]);
             epi_thumb_5.setImageDrawable(arrowsDrawableArray[3]);
 
-//            // how many pages we need
-//            int page = (int) ((Math.ceil((double) (epiTitles.length) / 8)));
+            // how many pages we need
+            int page = (int) ((Math.ceil((double) (epiTitles.length) / 8)));
+            //Hide right arrow on the last page
+            if (getArguments().getInt(ARG_SECTION_NUMBER) == page+1 ){
+                buttonRight.setVisibility(View.INVISIBLE);
+                rootView.setBackground(arrowsDrawableArray[0]);
+            }
+            // set page number text
+            if(getArguments().getInt(ARG_SECTION_NUMBER)!=1){
+                try {
+                    upRight.setText("PAGE " + Integer.toString((getArguments().getInt(ARG_SECTION_NUMBER)) - 1) + " of " + Integer.toString(page));
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
+                upLeft.setText(R.string.episodes);
+                mainEpiLayout.setVisibility(View.VISIBLE);
+                rootView.setBackground(arrowsDrawableArray[0]);
+                upRight.setVisibility(View.VISIBLE);
+            } else{
+                rootView.setBackground(arrowsDrawableArray[1]);
+                buttonLeft = (ImageView) rootView.findViewById(R.id.left);
+                buttonLeft.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        // Perform action on click
+                        getActivity().finish();
+                        getActivity().overridePendingTransition(R.anim.fadein_main, R.anim.fadeout_epi);
+                    }
+                });
+                upLeft.setText(R.string.series_info);
+                upRight.setVisibility(View.INVISIBLE);
+                mainEpiLayout.setVisibility(View.INVISIBLE);
+            }
+
 //            for (int a = 0; a <= page; a++) {
 //                setViewToPage(a, colomOne, colomOTwo);
 //            }
@@ -361,71 +424,7 @@ public class EpiActivity extends Activity {
 //
 //            final VideoView video = (VideoView) rootView.findViewById(R.id.videoView);
 //            video.setVideoURI(uri);
-
-
-
-
-            switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
-//                case 0:
-//                    rootView.setBackground(arrowsDrawableArray[0]);
-//                    return rootView;
-                case 1:
-                    rootView.setBackground(arrowsDrawableArray[1]);
-                    buttonLeft = (ImageView) rootView.findViewById(R.id.left);
-                    buttonLeft.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            // Perform action on click
-                            getActivity().finish();
-                            getActivity().overridePendingTransition(R.anim.fadein_main, R.anim.fadeout_epi);
-                        }
-                    });
-//                    video.stopPlayback();
-//                    video.setVisibility(View.INVISIBLE);
-                    upLeft.setText(R.string.series_info);
-                    upRight.setVisibility(View.INVISIBLE);
-                    mainEpiLayout.setVisibility(View.INVISIBLE);
-                    return rootView;
-                case 2:
-//                    video.setVisibility(View.INVISIBLE);
-                    try {
-                        upRight.setText("PAGE " + Integer.toString((getArguments().getInt(ARG_SECTION_NUMBER)) - 1) + " of " + Integer.toString((int) (Math.ceil((double) (epiTitles.length) / 8))));
-                    } catch (NullPointerException e) {
-                        e.printStackTrace();
-                    }
-                    mainEpiLayout.setVisibility(View.VISIBLE);
-                    upLeft.setText(R.string.episodes);
-
-//                    //Create ListView of episodes
-//                    epiList = (ListView) rootView.findViewById(R.id.episodes_title);
-//                    epiList.setAdapter(new CustomAdapter(getActivity(), epiTitles, arrowsDrawableArray, epi_num, description,textColor));
-                    rootView.setBackground(arrowsDrawableArray[0]);
-                    upRight.setVisibility(View.VISIBLE);
-                    return rootView;
-                case 3:
-
-                    mainEpiLayout.setVisibility(View.INVISIBLE);
-                    buttonRight.setVisibility(View.INVISIBLE);
-                    rootView.setBackground(arrowsDrawableArray[0]);
-                    upLeft.setVisibility(View.INVISIBLE);
-                    upRight.setVisibility(View.INVISIBLE);
-//                    playPreview.setVisibility(View.VISIBLE);
-//                    video.setVisibility(View.VISIBLE);
-//                    //Set focus change listener to change background
-//                    playPreview.setOnFocusChangeListener(focusListener);
-//                    playPreview.setOnClickListener(new View.OnClickListener() {
-//                        public void onClick(View v) {
-//                            // Perform action on click
-//                            video.start();
-//                            playPreview.setBackgroundResource(R.drawable.white_shape);
-//                        }
-//                    });
-//                    playAll.setVisibility(View.VISIBLE);
-//                    playNext.setVisibility(View.VISIBLE);
-//                    desc.setVisibility(View.VISIBLE);
-//                    playerPreview.setVisibility(View.VISIBLE);
-//                    return rootView;
-                }
-//            }
+            
             return rootView;
         }
 
@@ -467,10 +466,15 @@ public class EpiActivity extends Activity {
             }
         }
 
+        public void initLayoutsElements(){
+
+        }
+
         public void setViewToPage(int page, LinearLayout colomOne, LinearLayout colomTwo) {
             int end;
             boolean secondCol = true;
             int pageNumber = getArguments().getInt(ARG_SECTION_NUMBER) - 1;
+
 //            if (epiTitles.length <= 4) {
 //                end = epiTitles.length;
 //                secondCol = false;
