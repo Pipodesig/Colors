@@ -329,7 +329,7 @@ public class EpiActivity extends Activity {
 
             //Declarate all epiLayouts elements
 
-            initLayoutsElements();
+//            initLayoutsElements();
             epiNum  = new TextView[] {epi_num_1, epi_num_2, epi_num_3, epi_num_4, epi_num_5, epi_num_6, epi_num_7, epi_num_8};
             epiNumId = new int[]{R.id.epi_num_1,R.id.epi_num_2,R.id.epi_num_3,R.id.epi_num_4,R.id.epi_num_5,R.id.epi_num_6,R.id.epi_num_7,R.id.epi_num_8,};
             int pageNumber = getArguments().getInt(ARG_SECTION_NUMBER) - 1;
@@ -345,30 +345,31 @@ public class EpiActivity extends Activity {
                 System.out.println("end "+ end + "position " + position);
                 epiNum[position]=(TextView) rootView.findViewById(epiNumId[position]);
                 epiNum[position].setText(R.string.ep);
+                epiNum[position].setTextColor(textColor);
             }
 
 
 
 
-            //Episode #1
-            TextView epi_num_1 = (TextView) rootView.findViewById(R.id.epi_num_1);
-            TextView epi_title_1 = (TextView) rootView.findViewById(R.id.epi_title_1);
-            TextView epi_description_1 = (TextView) rootView.findViewById(R.id.epi_description_1);
-            ImageView epi_thumb_1 = (ImageView) rootView.findViewById(R.id.epi_thumb_1);
-
-            epi_num_1.setText(R.string.ep);
-            epi_title_1.setText(epi_num[4] + " " + epiTitles[4]);
-            epi_description_1.setText(description[4]);
-            epi_thumb_1.setImageDrawable(arrowsDrawableArray[4]);
-            //Episode #5
-            TextView epi_num_5 = (TextView) rootView.findViewById(R.id.epi_num_5);
-            TextView epi_title_5 = (TextView) rootView.findViewById(R.id.epi_title_5);
-            TextView epi_description_5 = (TextView) rootView.findViewById(R.id.epi_description_5);
-            ImageView epi_thumb_5 = (ImageView) rootView.findViewById(R.id.epi_thumb_5);
-            epi_num_5.setText(R.string.ep);
-            epi_title_5.setText(epi_num[3] + " " + epiTitles[3]);
-            epi_description_5.setText(description[3]);
-            epi_thumb_5.setImageDrawable(arrowsDrawableArray[3]);
+//            //Episode #1
+//            TextView epi_num_1 = (TextView) rootView.findViewById(R.id.epi_num_1);
+//            TextView epi_title_1 = (TextView) rootView.findViewById(R.id.epi_title_1);
+//            TextView epi_description_1 = (TextView) rootView.findViewById(R.id.epi_description_1);
+//            ImageView epi_thumb_1 = (ImageView) rootView.findViewById(R.id.epi_thumb_1);
+//
+//            epi_num_1.setText(R.string.ep);
+//            epi_title_1.setText(epi_num[4] + " " + epiTitles[4]);
+//            epi_description_1.setText(description[4]);
+//            epi_thumb_1.setImageDrawable(arrowsDrawableArray[4]);
+//            //Episode #5
+//            TextView epi_num_5 = (TextView) rootView.findViewById(R.id.epi_num_5);
+//            TextView epi_title_5 = (TextView) rootView.findViewById(R.id.epi_title_5);
+//            TextView epi_description_5 = (TextView) rootView.findViewById(R.id.epi_description_5);
+//            ImageView epi_thumb_5 = (ImageView) rootView.findViewById(R.id.epi_thumb_5);
+//            epi_num_5.setText(R.string.ep);
+//            epi_title_5.setText(epi_num[3] + " " + epiTitles[3]);
+//            epi_description_5.setText(description[3]);
+//            epi_thumb_5.setImageDrawable(arrowsDrawableArray[3]);
 
             // how many pages we need
             int page = (int) ((Math.ceil((double) (epiTitles.length) / 8)));
@@ -424,7 +425,7 @@ public class EpiActivity extends Activity {
 //
 //            final VideoView video = (VideoView) rootView.findViewById(R.id.videoView);
 //            video.setVideoURI(uri);
-            
+
             return rootView;
         }
 
