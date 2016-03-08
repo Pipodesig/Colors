@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.app.NavUtils;
@@ -24,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -63,7 +61,7 @@ public class EpiActivity extends Activity {
     static String[] epi_num;
     static BitmapDrawable[] arrowsDrawableArray = null;
     static int textColor;
-    LinearLayout [] epiLayouts;
+    LinearLayout[] epiLayouts;
     static Bitmap leftArrow;
     static Bitmap leftArrowFoc;
     static Bitmap rightArrow;
@@ -280,7 +278,7 @@ public class EpiActivity extends Activity {
             return fragment;
         }
 
-        private BitmapDrawable createDrawableFromBitmap(Bitmap bitmap){
+        private BitmapDrawable createDrawableFromBitmap(Bitmap bitmap) {
             BitmapDrawable drawable = new BitmapDrawable(getResources(), bitmap);
             return drawable;
         }
@@ -316,25 +314,57 @@ public class EpiActivity extends Activity {
             upRight.setTextColor(textColor);
 
             LinearLayout mainEpiLayout = (LinearLayout) rootView.findViewById(R.id.main_epi_layout);
-            LinearLayout colomOne = (LinearLayout) rootView.findViewById(R.id.colom_one);
-            LinearLayout colomOTwo = (LinearLayout) rootView.findViewById(R.id.colom_two);
-            // Create player buttons
-            final TextView playPreview = (TextView) rootView.findViewById(R.id.play_preview);
-            playPreview.setVisibility(View.INVISIBLE);
-            TextView playAll = (TextView) rootView.findViewById(R.id.play_all_seg);
-            playAll.setVisibility(View.INVISIBLE);
-            TextView playNext = (TextView) rootView.findViewById(R.id.play_next_seg);
-            playNext.setVisibility(View.INVISIBLE);
+//            LinearLayout colomOne = (LinearLayout) rootView.findViewById(R.id.colom_one);
+//            LinearLayout colomOTwo = (LinearLayout) rootView.findViewById(R.id.colom_two);
 
-            // Create playerPreview
-//            ImageView playerPreview = (ImageView) rootView.findViewById(R.id.preview_img);
-//            playerPreview.setVisibility(View.INVISIBLE);
-            // Add video player
-            String path1 ="http://tac.e10.tv/Feeds/hd1/RFC_12_FISH_1_1_392_HD1.mp4";
-            Uri uri=Uri.parse(path1);
+            //Declarate all epiLayouts elements
+            //Episode #1
+            TextView epi_num_1 = (TextView) rootView.findViewById(R.id.epi_num_1);
+            TextView epi_title_1 = (TextView) rootView.findViewById(R.id.epi_title_1);
+            TextView epi_description_1 = (TextView) rootView.findViewById(R.id.epi_description_1);
+            ImageView epi_thumb_1 = (ImageView) rootView.findViewById(R.id.epi_thumb_1);
 
-            final VideoView video=(VideoView)rootView.findViewById(R.id.videoView);
-            video.setVideoURI(uri);
+            epi_num_1.setText(R.string.ep);
+            epi_title_1.setText(epi_num[4] + " " + epiTitles[4]);
+            epi_description_1.setText(description[4]);
+            epi_thumb_1.setImageDrawable(arrowsDrawableArray[4]);
+            //Episode #5
+            TextView epi_num_5 = (TextView) rootView.findViewById(R.id.epi_num_5);
+            TextView epi_title_5 = (TextView) rootView.findViewById(R.id.epi_title_5);
+            TextView epi_description_5 = (TextView) rootView.findViewById(R.id.epi_description_5);
+            ImageView epi_thumb_5 = (ImageView) rootView.findViewById(R.id.epi_thumb_5);
+            epi_num_5.setText(R.string.ep);
+            epi_title_5.setText(epi_num[3] + " " + epiTitles[3]);
+            epi_description_5.setText(description[3]);
+            epi_thumb_5.setImageDrawable(arrowsDrawableArray[3]);
+
+//            // how many pages we need
+//            int page = (int) ((Math.ceil((double) (epiTitles.length) / 8)));
+//            for (int a = 0; a <= page; a++) {
+//                setViewToPage(a, colomOne, colomOTwo);
+//            }
+
+//            // Create player buttons
+//            final TextView playPreview = (TextView) rootView.findViewById(R.id.play_preview);
+//            playPreview.setVisibility(View.INVISIBLE);
+//            TextView playAll = (TextView) rootView.findViewById(R.id.play_all_seg);
+//            playAll.setVisibility(View.INVISIBLE);
+//            TextView playNext = (TextView) rootView.findViewById(R.id.play_next_seg);
+//            playNext.setVisibility(View.INVISIBLE);
+//
+//            // Create playerPreview
+////            ImageView playerPreview = (ImageView) rootView.findViewById(R.id.preview_img);
+////            playerPreview.setVisibility(View.INVISIBLE);
+//            // Add video player
+//            String path1 = "http://tac.e10.tv/Feeds/hd1/RFC_12_FISH_1_1_392_HD1.mp4";
+//            Uri uri = Uri.parse(path1);
+//
+//            final VideoView video = (VideoView) rootView.findViewById(R.id.videoView);
+//            video.setVideoURI(uri);
+
+
+
+
             switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
 //                case 0:
 //                    rootView.setBackground(arrowsDrawableArray[0]);
@@ -349,50 +379,18 @@ public class EpiActivity extends Activity {
                             getActivity().overridePendingTransition(R.anim.fadein_main, R.anim.fadeout_epi);
                         }
                     });
-                    video.stopPlayback();
-                    video.setVisibility(View.INVISIBLE);
+//                    video.stopPlayback();
+//                    video.setVisibility(View.INVISIBLE);
                     upLeft.setText(R.string.series_info);
                     upRight.setVisibility(View.INVISIBLE);
                     mainEpiLayout.setVisibility(View.INVISIBLE);
                     return rootView;
                 case 2:
-                    video.setVisibility(View.INVISIBLE);
-                    try{
-                        upRight.setText("PAGE "+Integer.toString((getArguments().getInt(ARG_SECTION_NUMBER))-1) +" of " +Integer.toString((int) (Math.ceil((double) (epiTitles.length) / 8))));
-                    }catch (NullPointerException e){
+//                    video.setVisibility(View.INVISIBLE);
+                    try {
+                        upRight.setText("PAGE " + Integer.toString((getArguments().getInt(ARG_SECTION_NUMBER)) - 1) + " of " + Integer.toString((int) (Math.ceil((double) (epiTitles.length) / 8))));
+                    } catch (NullPointerException e) {
                         e.printStackTrace();
-                    }
-                    int width;
-                    int height;
-
-                    for (int position = 0; position <=3; position++) {
-                            EpiView child = new EpiView(getActivity());
-//                        child.setLayoutParams(new LinearLayout.LayoutParams(width, height));
-                            child.setTitle(epi_num[position] + " " + epiTitles[position]);
-                            child.setDescription(description[position]);
-                            child.setThumb(arrowsDrawableArray[position + 2]);
-                        child.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                // Handle view click here
-                                toRight();
-                            }
-                        });
-                            colomOne.addView(child);
-                     }
-                    for (int position = 4; position<=7; position++) {
-                        EpiView child = new EpiView(getActivity());
-                        child.setTitle(epi_num[position] + " " + epiTitles[position]);
-                        child.setDescription(description[position]);
-                        child.setThumb(arrowsDrawableArray[position + 2]);
-                        child.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                // Handle view click here
-                                toRight();
-                            }
-                        });
-                        colomOTwo.addView(child);
                     }
                     mainEpiLayout.setVisibility(View.VISIBLE);
                     upLeft.setText(R.string.episodes);
@@ -404,33 +402,36 @@ public class EpiActivity extends Activity {
                     upRight.setVisibility(View.VISIBLE);
                     return rootView;
                 case 3:
+
                     mainEpiLayout.setVisibility(View.INVISIBLE);
                     buttonRight.setVisibility(View.INVISIBLE);
                     rootView.setBackground(arrowsDrawableArray[0]);
                     upLeft.setVisibility(View.INVISIBLE);
                     upRight.setVisibility(View.INVISIBLE);
-                    playPreview.setVisibility(View.VISIBLE);
-                    video.setVisibility(View.VISIBLE);
-                    //Set focus change listener to change background
-                    playPreview.setOnFocusChangeListener(focusListener);
-                    playPreview.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            // Perform action on click
-                            video.start();
-                            playPreview.setBackgroundResource(R.drawable.white_shape);
-                        }
-                    });
-                    playAll.setVisibility(View.VISIBLE);
-                    playNext.setVisibility(View.VISIBLE);
+//                    playPreview.setVisibility(View.VISIBLE);
+//                    video.setVisibility(View.VISIBLE);
+//                    //Set focus change listener to change background
+//                    playPreview.setOnFocusChangeListener(focusListener);
+//                    playPreview.setOnClickListener(new View.OnClickListener() {
+//                        public void onClick(View v) {
+//                            // Perform action on click
+//                            video.start();
+//                            playPreview.setBackgroundResource(R.drawable.white_shape);
+//                        }
+//                    });
+//                    playAll.setVisibility(View.VISIBLE);
+//                    playNext.setVisibility(View.VISIBLE);
 //                    desc.setVisibility(View.VISIBLE);
 //                    playerPreview.setVisibility(View.VISIBLE);
-                    return rootView;
-            }
+//                    return rootView;
+                }
+//            }
             return rootView;
         }
+
         private View.OnFocusChangeListener focusListener = new View.OnFocusChangeListener() {
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus){
+                if (hasFocus) {
                     v.setBackgroundResource(R.drawable.ic_launcher);
                 } else {
                     v.setBackgroundResource(R.drawable.ic_launcher);
@@ -465,6 +466,76 @@ public class EpiActivity extends Activity {
                 NavUtils.navigateUpTo(getActivity(), upIntent);
             }
         }
+
+        public void setViewToPage(int page, LinearLayout colomOne, LinearLayout colomTwo) {
+            int end;
+            boolean secondCol = true;
+            int pageNumber = getArguments().getInt(ARG_SECTION_NUMBER) - 1;
+//            if (epiTitles.length <= 4) {
+//                end = epiTitles.length;
+//                secondCol = false;
+//            } else {
+//                end = 5;
+//            }
+            for (int position = 0; position < epiTitles.length % 4; position++) {
+                int epiNumberOnPage = pageNumber * 8 - (8 - position);
+                System.out.println("epiNumberOnPage " + epiNumberOnPage + "pageNumber " + pageNumber + "position" + position);
+                EpiView child = new EpiView(getActivity());
+                if (pageNumber == 0) {
+
+                } else {
+//                        child.setLayoutParams(new LinearLayout.LayoutParams(width, height));
+                    child.setTitle(epi_num[epiNumberOnPage] + " " + epiTitles[epiNumberOnPage]);
+                    child.setDescription(description[epiNumberOnPage]);
+                    child.setThumb(arrowsDrawableArray[epiNumberOnPage + 2]);
+//                    if (epiNumberOnPage<= 4) {
+                        colomOne.addView(child);
+                        System.out.println("colomOne.addView(child);");
+//                    } else {
+//                        colomTwo.addView(child);
+//                        System.out.println("colomOne.addView(child);");
+//                    }
+                    child.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Handle view click here
+                            toRight();
+                        }
+                    });
+
+                }
+            }
+//            if (secondCol) {
+//            for (int position = 0; position < epiTitles.length % 4; position++) {
+//                if (pageNumber == 0) {
+//
+//                } else {
+//                    int epiNumberOnPage = pageNumber * 8 - (8 - position);
+//                    EpiView child = new EpiView(getActivity());
+//                    child.setTitle(epi_num[epiNumberOnPage] + " " + epiTitles[epiNumberOnPage]);
+//                    child.setDescription(description[epiNumberOnPage]);
+//                    child.setThumb(arrowsDrawableArray[epiNumberOnPage + 2]);
+//                    child.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            // Handle view click here
+//                            toRight();
+//                        }
+//                    });
+//                    System.out.println("epiNumberOnPage " + epiNumberOnPage + "pageNumber " + pageNumber + "position" + position);
+//                    if (epiNumberOnPage<= 4) {
+//                        colomOne.addView(child);
+//                        System.out.println("colomOne.addView(child);");
+//                    } else {
+//                        colomTwo.addView(child);
+//                        System.out.println("colomOne.addView(child);");
+//                    }
+//
+//                }
+//                }
+//            }
+
+        }
     }
 
     /**
@@ -491,7 +562,7 @@ public class EpiActivity extends Activity {
             // +1 page for player
             int catInt;
             try {
-                catInt = (int)(2+(Math.ceil((double)(epiTitles.length)/8)));
+                catInt = (int) (1 + (Math.ceil((double) (epiTitles.length) / 8)));
 //            System.out.println("Episodes " +epiTitles.length + " Pages " + catInt + " Math.ceil " + Math.ceil((double)epiTitles.length/8));
             } catch (Exception e) {
                 catInt = 3;

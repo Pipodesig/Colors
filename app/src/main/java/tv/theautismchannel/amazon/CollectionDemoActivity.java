@@ -423,12 +423,6 @@ public class CollectionDemoActivity extends FragmentActivity {
          //Do nothing here
         }
 
-//        private int getCatNForClick(){
-//            int pageNumber = args.getInt(ARG_OBJECT) - 1;
-//            int catNum = pageNumber*3;
-//            return catNum;
-//        }
-
         public void createEpiArray(int position) {
             // Then you start a new Activity via Intent
             Intent intent = new Intent();
@@ -502,8 +496,6 @@ public class CollectionDemoActivity extends FragmentActivity {
                 } catch (Exception e2) {
                 }
             }
-
-
 
             intent.putExtra("epi_epiback", epi_epiback);
             intent.putExtra("seriesTitle", title);
