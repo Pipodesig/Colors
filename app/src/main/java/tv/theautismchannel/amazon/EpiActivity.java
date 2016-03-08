@@ -81,6 +81,12 @@ public class EpiActivity extends Activity {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        episodes = null;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // remove title
@@ -263,6 +269,15 @@ public class EpiActivity extends Activity {
         private ListView epiList;
         private String backgroundlink;
         private  TextView[] epiNum;
+        private int [] epiNumId;
+        private  TextView[] epiTitle;
+        private int [] epiTitleId;
+        private  TextView[] epiDescription;
+        private int [] epiDescriptionId;
+        private  ImageView[] epiThumb;
+        private int [] epiThumbId;
+        private  LinearLayout[] epiLayouts;
+        private int [] epiLayoutsId;
         TextView epi_num_1 = null;
         TextView epi_num_2= null;
         TextView epi_num_3= null;
@@ -271,7 +286,38 @@ public class EpiActivity extends Activity {
         TextView epi_num_6= null;
         TextView epi_num_7= null;
         TextView epi_num_8= null;
-        private int [] epiNumId;
+        TextView epi_title_1 = null;
+        TextView epi_title_2= null;
+        TextView epi_title_3= null;
+        TextView epi_title_4= null;
+        TextView epi_title_5= null;
+        TextView epi_title_6= null;
+        TextView epi_title_7= null;
+        TextView epi_title_8= null;
+        TextView epi_description_1 = null;
+        TextView epi_description_2= null;
+        TextView epi_description_3= null;
+        TextView epi_description_4= null;
+        TextView epi_description_5= null;
+        TextView epi_description_6= null;
+        TextView epi_description_7= null;
+        TextView epi_description_8= null;
+        ImageView epi_thumb_1 = null;
+        ImageView epi_thumb_2 = null;
+        ImageView epi_thumb_3 = null;
+        ImageView epi_thumb_4 = null;
+        ImageView epi_thumb_5 = null;
+        ImageView epi_thumb_6 = null;
+        ImageView epi_thumb_7 = null;
+        ImageView epi_thumb_8 = null;
+        LinearLayout epi1= null;
+        LinearLayout epi2= null;
+        LinearLayout epi3= null;
+        LinearLayout epi4= null;
+        LinearLayout epi5= null;
+        LinearLayout epi6= null;
+        LinearLayout epi7= null;
+        LinearLayout epi8= null;
 
         public PlaceholderFragment() {
         }
@@ -330,26 +376,68 @@ public class EpiActivity extends Activity {
             //Declarate all epiLayouts elements
 
 //            initLayoutsElements();
+            int pageNumber = getArguments().getInt(ARG_SECTION_NUMBER) - 1;
             epiNum  = new TextView[] {epi_num_1, epi_num_2, epi_num_3, epi_num_4, epi_num_5, epi_num_6, epi_num_7, epi_num_8};
             epiNumId = new int[]{R.id.epi_num_1,R.id.epi_num_2,R.id.epi_num_3,R.id.epi_num_4,R.id.epi_num_5,R.id.epi_num_6,R.id.epi_num_7,R.id.epi_num_8,};
-            int pageNumber = getArguments().getInt(ARG_SECTION_NUMBER) - 1;
-//            int epiNumberOnPage = pageNumber * 8 - (8 - position);
+            epiTitle  = new TextView[] {epi_title_1, epi_title_2, epi_title_3, epi_title_4, epi_title_5, epi_title_6, epi_title_7, epi_title_8};
+            epiTitleId = new int[]{R.id.epi_title_1,R.id.epi_title_2,R.id.epi_title_3,R.id.epi_title_4,R.id.epi_title_5,R.id.epi_title_6,R.id.epi_title_7,R.id.epi_title_8,};
+            epiDescription = new TextView[] {epi_description_1, epi_description_2, epi_description_3, epi_description_4, epi_description_5, epi_description_6, epi_description_7, epi_description_8};
+            epiDescriptionId = new int[]{R.id.epi_description_1, R.id.epi_description_2, R.id.epi_description_3, R.id.epi_description_4, R.id.epi_description_5, R.id.epi_description_6, R.id.epi_description_7, R.id.epi_description_8};
+            epiThumb = new ImageView[] {epi_thumb_1, epi_thumb_2, epi_thumb_3, epi_thumb_4, epi_thumb_5, epi_thumb_6, epi_thumb_7, epi_thumb_8};
+            epiThumbId = new int[]{R.id.epi_thumb_1, R.id.epi_thumb_2, R.id.epi_thumb_3, R.id.epi_thumb_4, R.id.epi_thumb_5, R.id.epi_thumb_6, R.id.epi_thumb_7, R.id.epi_thumb_8};
+            epiLayouts = new LinearLayout[] {epi1, epi2, epi2, epi3, epi4, epi5, epi6, epi7, epi8};
+            epiLayoutsId = new int[]{R.id.epi1, R.id.epi2, R.id.epi3, R.id.epi4, R.id.epi5, R.id.epi6, R.id.epi7, R.id.epi8 };
+            // how many pages we need
+            int page = (int) ((Math.ceil((double) (epiTitles.length) / 8)));
+
             int end;
+            // if we have more than 8 episodes
             if (epiTitles.length>=8){
+                // show 8 epi per page
                 end = 8;
+                // if it is last page
+                if (getArguments().getInt(ARG_SECTION_NUMBER) == page+1 ){
+                    //get rest episodes for page
+                    end = epiTitles.length%8;
+                    // if we have full page of pisodes
+                    if(end==0){
+                        end=8;
+                    }
+                }
             }else {
                 end = epiTitles.length;
+            }
+            // if we are on the last page
+            if (getArguments().getInt(ARG_SECTION_NUMBER) == page+ 1) {
+                //Hide right arrow on the last page
+                buttonRight.setVisibility(View.INVISIBLE);
+                rootView.setBackground(arrowsDrawableArray[0]);
             }
 
             for (int position = 0; position < end; position++){
                 System.out.println("end "+ end + "position " + position);
+
                 epiNum[position]=(TextView) rootView.findViewById(epiNumId[position]);
                 epiNum[position].setText(R.string.ep);
                 epiNum[position].setTextColor(textColor);
+                if(pageNumber==0){
+
+                }else{
+                    int epiNumberOnPage = pageNumber * 8 - (8 - position);
+                    //set epiTitles
+                    epiTitle[position]=(TextView) rootView.findViewById(epiTitleId[position]);
+                    epiTitle[position].setText(epi_num[epiNumberOnPage] + " " + epiTitles[epiNumberOnPage]);
+                    //set epi description
+                    epiDescription[position]=(TextView) rootView.findViewById(epiDescriptionId[position]);
+                    epiDescription[position].setText(description[epiNumberOnPage]);
+                   // set epi thumb
+                    epiThumb[position]=(ImageView) rootView.findViewById(epiThumbId[position]);
+                    epiThumb[position].setImageDrawable(arrowsDrawableArray[epiNumberOnPage + 2]);
+                    //set text color
+                    epiTitle[position].setTextColor(textColor);
+                    epiDescription[position].setTextColor(textColor);
+                }
             }
-
-
-
 
 //            //Episode #1
 //            TextView epi_num_1 = (TextView) rootView.findViewById(R.id.epi_num_1);
@@ -371,13 +459,8 @@ public class EpiActivity extends Activity {
 //            epi_description_5.setText(description[3]);
 //            epi_thumb_5.setImageDrawable(arrowsDrawableArray[3]);
 
-            // how many pages we need
-            int page = (int) ((Math.ceil((double) (epiTitles.length) / 8)));
-            //Hide right arrow on the last page
-            if (getArguments().getInt(ARG_SECTION_NUMBER) == page+1 ){
-                buttonRight.setVisibility(View.INVISIBLE);
-                rootView.setBackground(arrowsDrawableArray[0]);
-            }
+
+
             // set page number text
             if(getArguments().getInt(ARG_SECTION_NUMBER)!=1){
                 try {
