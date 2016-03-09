@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -266,6 +267,7 @@ public class EpiActivity extends Activity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+
         private ListView epiList;
         private String backgroundlink;
         private  TextView[] epiNum;
@@ -387,6 +389,7 @@ public class EpiActivity extends Activity {
             epiThumbId = new int[]{R.id.epi_thumb_1, R.id.epi_thumb_2, R.id.epi_thumb_3, R.id.epi_thumb_4, R.id.epi_thumb_5, R.id.epi_thumb_6, R.id.epi_thumb_7, R.id.epi_thumb_8};
             epiLayouts = new LinearLayout[] {epi1, epi2, epi2, epi3, epi4, epi5, epi6, epi7, epi8};
             epiLayoutsId = new int[]{R.id.epi1, R.id.epi2, R.id.epi3, R.id.epi4, R.id.epi5, R.id.epi6, R.id.epi7, R.id.epi8 };
+
             // how many pages we need
             int page = (int) ((Math.ceil((double) (epiTitles.length) / 8)));
 
@@ -420,9 +423,11 @@ public class EpiActivity extends Activity {
                 epiNum[position]=(TextView) rootView.findViewById(epiNumId[position]);
                 epiNum[position].setText(R.string.ep);
                 epiNum[position].setTextColor(textColor);
+
                 if(pageNumber==0){
 
-                }else{
+                }else{           
+
                     int epiNumberOnPage = pageNumber * 8 - (8 - position);
                     //set epiTitles
                     epiTitle[position]=(TextView) rootView.findViewById(epiTitleId[position]);
@@ -436,6 +441,12 @@ public class EpiActivity extends Activity {
                     //set text color
                     epiTitle[position].setTextColor(textColor);
                     epiDescription[position].setTextColor(textColor);
+
+                    // Set onClickListener to layout
+//                    seriesList.setOnItemClickListener(itemClickListenerOne);
+                    epiLayouts[position]=(LinearLayout) rootView.findViewById(epiLayoutsId[position]);
+                    epiLayouts[position].setOnClickListener(itemClickListenerOne);
+                    epiLayouts[position].setFocusable(true);
                 }
             }
 
@@ -511,6 +522,40 @@ public class EpiActivity extends Activity {
 
             return rootView;
         }
+        private View.OnClickListener itemClickListenerOne = new View.OnClickListener() {
+            public void onClick(View v) {
+                switch(v.getId()){
+                    case R.id.epi1:
+                        Toast.makeText(getActivity(), "hello epi1", Toast.LENGTH_LONG).show();
+                        break;
+                    case R.id.epi2:
+                        Toast.makeText(getActivity(), "hello epi2", Toast.LENGTH_LONG).show();
+                        break;
+                    case R.id.epi3:
+                        Toast.makeText(getActivity(), "hello epi3", Toast.LENGTH_LONG).show();
+                        break;
+                    case R.id.epi4:
+                        Toast.makeText(getActivity(), "hello epi4", Toast.LENGTH_LONG).show();
+                        break;
+                    case R.id.epi5:
+                        Toast.makeText(getActivity(), "hello epi5", Toast.LENGTH_LONG).show();
+                        break;
+                    case R.id.epi6:
+                        Toast.makeText(getActivity(), "hello epi6", Toast.LENGTH_LONG).show();
+                        break;
+                    case R.id.epi7:
+                        Toast.makeText(getActivity(), "hello epi7", Toast.LENGTH_LONG).show();
+                        break;
+                    case R.id.epi8:
+                        Toast.makeText(getActivity(), "hello epi8", Toast.LENGTH_LONG).show();
+                        break;
+                    default:
+                        Toast.makeText(getActivity(), "hello everyone", Toast.LENGTH_LONG).show();
+                        break;
+                }
+
+            }
+        };
 
         private View.OnFocusChangeListener focusListener = new View.OnFocusChangeListener() {
             public void onFocusChange(View v, boolean hasFocus) {
