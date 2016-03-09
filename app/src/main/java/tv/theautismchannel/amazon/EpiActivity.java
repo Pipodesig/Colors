@@ -349,7 +349,7 @@ public class EpiActivity extends Activity {
             //Create navigation arrows
             ImageView buttonRight = (ImageView) rootView.findViewById(R.id.right);
             buttonRight.setBackground(createDrawableFromBitmap(rightArrow));
-
+            buttonRight.setOnFocusChangeListener(focusListenerRight);
             buttonRight.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // Perform action on click
@@ -364,6 +364,7 @@ public class EpiActivity extends Activity {
                     toLeft();
                 }
             });
+            buttonLeft.setOnFocusChangeListener(focusListenerLeft);
             // Text in up left corner
             TextView upLeft = (TextView) rootView.findViewById(R.id.text_up_left);
             upLeft.setTextColor(textColor);
@@ -485,7 +486,6 @@ public class EpiActivity extends Activity {
                 upRight.setVisibility(View.VISIBLE);
             } else{
                 rootView.setBackground(arrowsDrawableArray[1]);
-                buttonLeft = (ImageView) rootView.findViewById(R.id.left);
                 buttonLeft.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         // Perform action on click
@@ -571,12 +571,21 @@ public class EpiActivity extends Activity {
             startActivity(intent);
         };
 
-        private View.OnFocusChangeListener focusListener = new View.OnFocusChangeListener() {
+        private View.OnFocusChangeListener focusListenerLeft = new View.OnFocusChangeListener() {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    v.setBackgroundResource(R.drawable.ic_launcher);
+                    v.setBackground(createDrawableFromBitmap(leftArrowFoc));
                 } else {
-                    v.setBackgroundResource(R.drawable.ic_launcher);
+                    v.setBackground(createDrawableFromBitmap(leftArrow));
+                }
+            }
+        };
+        private View.OnFocusChangeListener focusListenerRight = new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    v.setBackground(createDrawableFromBitmap(rightArrowFoc));
+                } else {
+                    v.setBackground(createDrawableFromBitmap(rightArrow));
                 }
             }
         };

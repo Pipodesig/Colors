@@ -274,6 +274,7 @@ public class CollectionDemoActivity extends FragmentActivity {
             titleThree.setText(getPageTitle(getCategoryNum(2)));
             ImageView buttonRight = (ImageView) rootView.findViewById(R.id.right);
             buttonRight.setBackground(arrowsDrawableArray[2]);
+            buttonRight.setOnFocusChangeListener(focusListenerRight);
             buttonRight.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // Perform action on click
@@ -282,6 +283,7 @@ public class CollectionDemoActivity extends FragmentActivity {
             });
             ImageView buttonLeft = (ImageView) rootView.findViewById(R.id.left);
             buttonLeft.setBackground(arrowsDrawableArray[0]);
+            buttonLeft.setOnFocusChangeListener(focusListenerLeft);
             buttonLeft.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // Perform action on click
@@ -334,6 +336,24 @@ public class CollectionDemoActivity extends FragmentActivity {
         public void toLeft() {
             ((CollectionDemoActivity) getActivity()).selectPage(args.getInt(ARG_OBJECT) - 2);
         }
+        private View.OnFocusChangeListener focusListenerLeft = new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    v.setBackground(arrowsDrawableArray[1]);
+                } else {
+                    v.setBackground(arrowsDrawableArray[0]);
+                }
+            }
+        };
+        private View.OnFocusChangeListener focusListenerRight = new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    v.setBackground(arrowsDrawableArray[3]);
+                } else {
+                    v.setBackground(arrowsDrawableArray[2]);
+                }
+            }
+        };
 
         // Create listView for first collum
         public void cresteSeriesView(ListView seriesList, int catNum) {
