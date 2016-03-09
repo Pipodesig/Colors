@@ -29,6 +29,10 @@
         android:name="android.hardware.touchscreen"
         android:required="false" />
 
+    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -36,19 +40,21 @@
         <activity
             android:name=".CollectionDemoActivity"
             android:label="@string/demo_collection"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".EpiActivity"
             android:label="@string/title_activity_epi"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".PreLoadingActivity"
-            android:screenOrientation="landscape"
-            ></activity>
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".PreLoadingActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".PlayerActivity"></activity>
     </application>
 
 </manifest>

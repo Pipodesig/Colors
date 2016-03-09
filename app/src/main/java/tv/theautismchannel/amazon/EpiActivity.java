@@ -527,27 +527,35 @@ public class EpiActivity extends Activity {
                 switch(v.getId()){
                     case R.id.epi1:
                         Toast.makeText(getActivity(), "hello epi1", Toast.LENGTH_LONG).show();
+                        startVideoActivity(1);
                         break;
                     case R.id.epi2:
                         Toast.makeText(getActivity(), "hello epi2", Toast.LENGTH_LONG).show();
+                        startVideoActivity(2);
                         break;
                     case R.id.epi3:
                         Toast.makeText(getActivity(), "hello epi3", Toast.LENGTH_LONG).show();
+                        startVideoActivity(3);
                         break;
                     case R.id.epi4:
                         Toast.makeText(getActivity(), "hello epi4", Toast.LENGTH_LONG).show();
+                        startVideoActivity(4);
                         break;
                     case R.id.epi5:
                         Toast.makeText(getActivity(), "hello epi5", Toast.LENGTH_LONG).show();
+                        startVideoActivity(5);
                         break;
                     case R.id.epi6:
                         Toast.makeText(getActivity(), "hello epi6", Toast.LENGTH_LONG).show();
+                        startVideoActivity(6);
                         break;
                     case R.id.epi7:
                         Toast.makeText(getActivity(), "hello epi7", Toast.LENGTH_LONG).show();
+                        startVideoActivity(7);
                         break;
                     case R.id.epi8:
                         Toast.makeText(getActivity(), "hello epi8", Toast.LENGTH_LONG).show();
+                        startVideoActivity(8);
                         break;
                     default:
                         Toast.makeText(getActivity(), "hello everyone", Toast.LENGTH_LONG).show();
@@ -555,6 +563,12 @@ public class EpiActivity extends Activity {
                 }
 
             }
+        };
+        private void startVideoActivity(int id){
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), PlayerActivity.class);
+            intent.putExtra("id", id);
+            startActivity(intent);
         };
 
         private View.OnFocusChangeListener focusListener = new View.OnFocusChangeListener() {
