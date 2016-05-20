@@ -1,8 +1,12 @@
 package mobi.pipo.learncolors;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Interpolator;
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +20,7 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,8 +28,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.BounceInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +63,21 @@ public class MainActivity extends AppCompatActivity {
     String exitText;
     private static final int TIME_INTERVAL = 4000; // # milliseconds, desired time passed between two back presses.
     private long mBackPressed;
+    private ScrollView mScrollView;
+
+    public static AnimatedVectorDrawable crossToTick;
+
+    @Override
+    public void onEnterAnimationComplete(){
+        super.onEnterAnimationComplete();
+        final int startScrollPosition = getResources().getDimensionPixelSize(R.dimen.init_scroll_up_distance);
+        Animator animator = ObjectAnimator.ofInt(
+                mScrollView,
+                "scrollY",
+                startScrollPosition).setDuration (300);
+        animator.start();
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private ScrollView mScrollView;
 
         public PlaceholderFragment() {
         }
@@ -156,24 +179,47 @@ public class MainActivity extends AppCompatActivity {
 //
 //            RoundedBitmapDrawable drawable  = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
 //            drawable.setCircular(true);
-//            ImageView roundImage = (ImageView)rootView.findViewById(R.id.imageView);
+            final ImageView roundImage = (ImageView)rootView.findViewById(R.id.imageView);
 //            roundImage.setBackground(drawable);
-            TextView textView = (TextView) rootView.findViewById(R.id.textView);
-            textView.setText(COLOR_NAMES[getArguments().getInt(ARG_SECTION_NUMBER) - 1]);
-            textView.setTextColor(COLORS[getArguments().getInt(ARG_SECTION_NUMBER) - 1]);
 
-            rootView.setOnClickListener(new View.OnClickListener() {
+                BounceInterpolator inter = new BounceInterpolator();
+
+            DisplayMetrics metrix = new DisplayMetrics();
+
+            TextView textView = (TextView) rootView.findViewById(R.id.textView);
+            textView.setTranslationY(300);
+
+            textView.animate()
+                    .setInterpolator(inter)
+                    .setDuration(1500)
+                    .setStartDelay(500)
+            .translationYBy(-300);
+//            textView.setText(COLOR_NAMES[getArguments().getInt(ARG_SECTION_NUMBER) - 1]);
+            textView.setTextColor(COLORS[getArguments().getInt(ARG_SECTION_NUMBER) - 1]);
+            mScrollView = (ScrollView)rootView.findViewById(R.id.scrollView);
+
+
+            crossToTick = (AnimatedVectorDrawable) getResources().getDrawable(R.drawable.avd_cross_to_tick);
+            roundImage.setImageDrawable(crossToTick);
+//            crossToTick.start();
+
+            roundImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    playColor();
+                    crossToTick.start();
                 }
             });
             return rootView;
         }
 
-        private void playColor() {
+        private void playColor(ImageView roundImage, AnimatedVectorDrawable crossToTick) {
+            roundImage.setImageDrawable(crossToTick);
+            crossToTick.start();
             // Play color sound here
         }
+
+
+
     }
 
     /**
@@ -192,6 +238,7 @@ public class MainActivity extends AppCompatActivity {
             // Return a PlaceholderFragment (defined as a static inner class below).
             return PlaceholderFragment.newInstance(position + 1);
         }
+
 
         @Override
         public int getCount() {

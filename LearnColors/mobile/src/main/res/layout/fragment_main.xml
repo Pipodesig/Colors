@@ -4,28 +4,39 @@
     android:layout_height="match_parent"
     tools:context="mobi.pipo.learncolors.MainActivity$PlaceholderFragment">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:layout_gravity="center"
-        android:src="@android:drawable/sym_def_app_icon"
-        android:scaleType="center"
-        android:visibility="gone" />
     <View android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="296dp"
         android:background="@drawable/gradient">
     </View>
-    <TextView
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+        android:id="@+id/scrollView"
+        android:layout_gravity="center_horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:elevation="8dp"
+            android:gravity="center_horizontal">
+    <TextView
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
         android:id="@+id/textView"
-        android:layout_gravity="center"
-        android:textSize="50sp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="30sp"
         android:textStyle="bold"
-        android:theme="@style/AppTheme" />
+        android:theme="@style/AppTheme"
+        android:text="djfghdfghuighfuiadhgidfghadfhgauiehgiuerghaigh iuarghiaeu eriguh aierugh uerhg aergh erughaifg auiergh aieurgh aieurgh airugh aierugh aiuhaieurhg aierug aie sdhf gds sdhfgdhsfg sdhfg sdfg  sdhfgsdfgudswgfa  sdhfg asdhjfg asjahsdgf ausdgf asdugf audgf aksdhgf akshdfg kayuswefg ahdbvf kauweyg kasudhgf kauwyegrf aksudhgf auywegf asudhfg kauywegf kaudwgf k&lt;ajshdbv khwgfuwyegfuywge uuwegf ywegfuyg sdjhvbxcbvnbxc,mvnb v wyuevgaug&lt;hsd&lt;sdf s&lt;df &lt;sd &lt;sd f&lt;sdf&lt;sdvf&lt;sdhfwefyhgwe fwhfe wefg &lt;lsdhfg &lt;wef &lt;lhse f&lt;wiefg yewgfyufuegrgewfyg sdhfbv sjdhb vfjshdbf khfk uw yeguegf eygf uyefg egfwegfev&lt;jhergh aeirugh aerg" />
+        </LinearLayout>
+    </ScrollView>
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_gravity="center"
+        android:scaleType="center"
+        android:visibility="visible" />
 </FrameLayout>
